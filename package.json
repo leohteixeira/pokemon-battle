@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/leohteixeira/pokemon-battle#readme",
   "devDependencies": {
-    "git-commit-msg-linter": "^4.2.1"
+    "@types/node": "^18.11.8",
+    "git-commit-msg-linter": "^4.2.1",
+    "typescript": "^4.8.4"
   }
 }
