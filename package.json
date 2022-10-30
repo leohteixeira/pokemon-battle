@@ -1,0 +1,22 @@
+{
+  "name": "pokemon-battle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leohteixeira/pokemon-battle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leohteixeira/pokemon-battle/issues"
+  },
+  "homepage": "https://github.com/leohteixeira/pokemon-battle#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.2.1"
+  }
+}
