@@ -10,6 +10,7 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test --findRelatedTests",
     "test:ci": "npm test --coverage",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -35,7 +36,15 @@
     "husky": "^8.0.1",
     "jest": "^27.5.1",
     "lint-staged": "^13.0.3",
+    "prettier": "2.7.1",
     "ts-jest": "^27.1.3",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@types/module-alias": "^2.0.1",
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
