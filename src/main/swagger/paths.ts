@@ -1,5 +1,6 @@
-import { pokemonsPath } from './paths/'
+import { pokemonsPath, pokemonsIdPath } from './paths/'
 
 export default {
-  '/pokemons': pokemonsPath
+  '/pokemons': pokemonsPath,
+  '/pokemons/{id}': pokemonsIdPath
 }

@@ -45,3 +45,48 @@ export const pokemonsPath: OpenAPIV3.PathItemObject = {
     }
   }
 }
+
+export const pokemonsIdPath: OpenAPIV3.PathItemObject = {
+  put: {
+    tags: ['Pokemon'],
+    summary: 'Edits an existent pokemon',
+    description: 'This route edits an existent pokemon',
+    parameters: [
+      {
+        in: 'path',
+        name: 'id',
+        description: 'Unique identifier of the pokemon',
+        required: true,
+        schema: {
+          type: 'number'
+        }
+      }
+    ],
+    requestBody: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              treinador: {
+                type: 'string'
+              }
+            }
+          }
+        }
+      }
+    },
+    responses: {
+      204: {
+        $ref: '#/components/noContent'
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}
