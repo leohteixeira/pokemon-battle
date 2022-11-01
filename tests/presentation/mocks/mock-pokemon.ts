@@ -1,4 +1,4 @@
-import { AddPokemon } from '@/domain/usecases'
+import { AddPokemon, EditPokemon } from '@/domain/usecases'
 import { mockPokemonModel } from '@/tests/domain/mocks'
 
 export class AddPokemonSpy implements AddPokemon {
@@ -8,5 +8,13 @@ export class AddPokemonSpy implements AddPokemon {
   async add(params: AddPokemon.Params): Promise<AddPokemon.Result> {
     this.params = params
     return this.result
+  }
+}
+
+export class EditPokemonSpy implements EditPokemon {
+  params: EditPokemon.Params
+
+  async edit(params: EditPokemon.Params): Promise<EditPokemon.Result> {
+    this.params = params
   }
 }
