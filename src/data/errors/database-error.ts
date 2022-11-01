@@ -12,4 +12,15 @@ export namespace DatabaseError {
       super('InsertFail', message)
     }
   }
+
+  export class NotFound extends DatabaseError {
+    constructor(message = 'Database document not found') {
+      super('NotFound', message)
+    }
+  }
+  export class UpdateFail extends DatabaseError {
+    constructor(message = 'Database document update failed') {
+      super('UpdateFail', message)
+    }
+  }
 }
