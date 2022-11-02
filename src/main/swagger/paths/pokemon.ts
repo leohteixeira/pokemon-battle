@@ -177,3 +177,63 @@ export const pokemonsIdPath: OpenAPIV3.PathItemObject = {
     }
   }
 }
+
+export const pokemonBattlePath: OpenAPIV3.PathItemObject = {
+  post: {
+    tags: ['Pokemon'],
+    summary: 'Requests a pokemon information',
+    description: 'This route finds a pokemon by id',
+    parameters: [
+      {
+        in: 'path',
+        name: 'pokemonAId',
+        description: 'Unique identifier of the pokemon A',
+        required: true,
+        schema: {
+          type: 'string'
+        }
+      },
+      {
+        in: 'path',
+        name: 'pokemonBId',
+        description: 'Unique identifier of the pokemon B',
+        required: true,
+        schema: {
+          type: 'string'
+        }
+      }
+    ],
+    responses: {
+      200: {
+        description: 'Ok',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                vencedor: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/schemas/pokemon'
+                  }
+                },
+                perdedor: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/schemas/pokemon'
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}
