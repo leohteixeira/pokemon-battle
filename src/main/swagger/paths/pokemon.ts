@@ -88,5 +88,33 @@ export const pokemonsIdPath: OpenAPIV3.PathItemObject = {
         $ref: '#/components/serverError'
       }
     }
+  },
+
+  delete: {
+    tags: ['Pokemon'],
+    summary: 'Removes a pokemon',
+    description: 'This route removes an existent pokemon',
+    parameters: [
+      {
+        in: 'path',
+        name: 'id',
+        description: 'Unique identifier of the pokemon',
+        required: true,
+        schema: {
+          type: 'number'
+        }
+      }
+    ],
+    responses: {
+      204: {
+        $ref: '#/components/noContent'
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
   }
 }
