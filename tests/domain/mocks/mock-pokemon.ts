@@ -14,6 +14,11 @@ export const mockPokemonModel = (): Pokemon.Model => ({
   nivel: datatype.number()
 })
 
+export const mockPokemonModels = (): Pokemon.Model[] => [
+  mockPokemonModel(),
+  mockPokemonModel()
+]
+
 export const mockAddPokemonParams = (): AddPokemon.Params => ({
   tipo: random.arrayElement([
     Pokemon.PokemonType.CHARIZARD,

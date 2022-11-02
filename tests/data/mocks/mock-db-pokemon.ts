@@ -2,9 +2,10 @@ import {
   AddPokemonRepository,
   EditPokemonRepository,
   FindPokemonRepository,
+  FindPokemonsRepository,
   RemovePokemonRepository
 } from '@/data/protocols'
-import { mockPokemonModel } from '@/tests/domain/mocks'
+import { mockPokemonModel, mockPokemonModels } from '@/tests/domain/mocks'
 
 export class AddPokemonRepositorySpy implements AddPokemonRepository {
   params: AddPokemonRepository.Params
@@ -46,6 +47,14 @@ export class FindPokemonRepositorySpy implements FindPokemonRepository {
     params: FindPokemonRepository.Params
   ): Promise<FindPokemonRepository.Result> {
     this.params = params
+    return this.result
+  }
+}
+
+export class FindPokemonsRepositorySpy implements FindPokemonsRepository {
+  result: FindPokemonsRepository.Result = mockPokemonModels()
+
+  async findPokemons(): Promise<FindPokemonsRepository.Result> {
     return this.result
   }
 }
