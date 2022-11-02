@@ -4,7 +4,7 @@ export interface RemovePokemon {
 
 export namespace RemovePokemon {
   export type Params = {
-    id: string
+    id: number
   }
   export type Result = void
 }
