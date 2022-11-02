@@ -3,6 +3,7 @@ import {
   makeAddPokemonController,
   makeEditPokemonController,
   makeFindPokemonController,
+  makeFindPokemonsController,
   makeRemovePokemonController
 } from '@/main/factories/controllers'
 
@@ -13,4 +14,5 @@ export const applyPokemonRoutes = (router: Router): void => {
   router.put('/pokemons/:id', adaptRoute(makeEditPokemonController()))
   router.delete('/pokemons/:id', adaptRoute(makeRemovePokemonController()))
   router.get('/pokemons/:id', adaptRoute(makeFindPokemonController()))
+  router.get('/pokemons', adaptRoute(makeFindPokemonsController()))
 }
