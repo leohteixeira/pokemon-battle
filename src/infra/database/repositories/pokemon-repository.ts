@@ -3,6 +3,7 @@ import {
   AddPokemonRepository,
   EditPokemonRepository,
   FindPokemonRepository,
+  FindPokemonsRepository,
   RemovePokemonRepository
 } from '@/data/protocols'
 import { Pokemon } from '@/infra/database/entities'
@@ -13,7 +14,8 @@ export class PokemonRepository
     AddPokemonRepository,
     EditPokemonRepository,
     RemovePokemonRepository,
-    FindPokemonRepository
+    FindPokemonRepository,
+    FindPokemonsRepository
 {
   async add(
     params: AddPokemonRepository.Params
@@ -81,5 +83,13 @@ export class PokemonRepository
       throw new DatabaseError.NotFound('Pokemon could not be found')
     }
     return pokemon
+  }
+
+  async findPokemons(): Promise<FindPokemonsRepository.Result> {
+    const pokemonRepository = await MsSQLHelper.getRepository(Pokemon)
+
+    const result = await pokemonRepository.find({})
+
+    return result
   }
 }
