@@ -51,13 +51,17 @@ export class PokemonRepository
   ): Promise<RemovePokemonRepository.Result> {
     try {
       const pokemonRepository = await MsSQLHelper.getRepository(Pokemon)
-      await pokemonRepository
-        .createQueryBuilder()
-        .delete()
-        .from(Pokemon)
-        .where({ id: params.id })
-        .execute()
+      const pokemon = await pokemonRepository.findOne({
+        where: { id: params.id }
+      })
+
+      if (!pokemon) {
+        throw new DatabaseError.NotFound('Pokemon could not be found')
+      }
+
+      await pokemonRepository.delete({ id: params.id })
     } catch (error) {
+      if (error instanceof DatabaseError.NotFound) throw error
       throw new DatabaseError.RemoveFail(String(error.stack))
     }
   }
