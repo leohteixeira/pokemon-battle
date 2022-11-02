@@ -2,6 +2,7 @@ import { DatabaseError } from '@/data/errors'
 import {
   AddPokemonRepository,
   EditPokemonRepository,
+  FindPokemonRepository,
   RemovePokemonRepository
 } from '@/data/protocols'
 import { Pokemon } from '@/infra/database/entities'
@@ -11,7 +12,8 @@ export class PokemonRepository
   implements
     AddPokemonRepository,
     EditPokemonRepository,
-    RemovePokemonRepository
+    RemovePokemonRepository,
+    FindPokemonRepository
 {
   async add(
     params: AddPokemonRepository.Params
@@ -64,5 +66,20 @@ export class PokemonRepository
       if (error instanceof DatabaseError.NotFound) throw error
       throw new DatabaseError.RemoveFail(String(error.stack))
     }
+  }
+
+  async findPokemon(
+    params: FindPokemonRepository.Params
+  ): Promise<FindPokemonRepository.Result> {
+    const pokemonRepository = await MsSQLHelper.getRepository(Pokemon)
+
+    const pokemon = await pokemonRepository.findOne({
+      where: { id: params.id }
+    })
+
+    if (!pokemon) {
+      throw new DatabaseError.NotFound('Pokemon could not be found')
+    }
+    return pokemon
   }
 }
