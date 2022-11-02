@@ -23,4 +23,10 @@ export namespace DatabaseError {
       super('UpdateFail', message)
     }
   }
+
+  export class RemoveFail extends DatabaseError {
+    constructor(message = 'Database document remove failed') {
+      super('RemoveFail', message)
+    }
+  }
 }
