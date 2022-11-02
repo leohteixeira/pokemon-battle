@@ -6,7 +6,7 @@ export interface FindPokemon {
 
 export namespace FindPokemon {
   export type Params = {
-    id: string
+    id: number
   }
   export type Result = Pokemon.Model
 }
