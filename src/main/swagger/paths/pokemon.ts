@@ -43,6 +43,30 @@ export const pokemonsPath: OpenAPIV3.PathItemObject = {
         $ref: '#/components/serverError'
       }
     }
+  },
+
+  get: {
+    tags: ['Pokemon'],
+    summary: 'Requests a pokemon list',
+    description: 'This route returns all pokemons',
+    responses: {
+      200: {
+        description: 'Ok',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: {
+                $ref: '#/schemas/pokemon'
+              }
+            }
+          }
+        }
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
   }
 }
 
