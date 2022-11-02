@@ -116,5 +116,40 @@ export const pokemonsIdPath: OpenAPIV3.PathItemObject = {
         $ref: '#/components/serverError'
       }
     }
+  },
+
+  get: {
+    tags: ['Pokemon'],
+    summary: 'Requests a pokemon information',
+    description: 'This route finds a pokemon by id',
+    parameters: [
+      {
+        in: 'path',
+        name: 'id',
+        description: 'Unique identifier of the pokemon',
+        required: true,
+        schema: {
+          type: 'number'
+        }
+      }
+    ],
+    responses: {
+      200: {
+        description: 'Ok',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/pokemon'
+            }
+          }
+        }
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
   }
 }
