@@ -1,5 +1,5 @@
 import { Pokemon } from '@/domain/models'
-import { AddPokemon, EditPokemon } from '@/domain/usecases'
+import { AddPokemon, BattlePokemon, EditPokemon } from '@/domain/usecases'
 
 import { datatype, random } from 'faker'
 
@@ -12,6 +12,11 @@ export const mockPokemonModel = (): Pokemon.Model => ({
   ]),
   treinador: random.words(),
   nivel: datatype.number()
+})
+
+export const mockPokemonBattleModel = (): BattlePokemon.Result => ({
+  vencedor: mockPokemonModel(),
+  perdedor: mockPokemonModel()
 })
 
 export const mockPokemonModels = (): Pokemon.Model[] => [

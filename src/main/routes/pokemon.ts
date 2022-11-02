@@ -1,6 +1,7 @@
 import { adaptRoute } from '@/main/adapters'
 import {
   makeAddPokemonController,
+  makeBattlePokemonController,
   makeEditPokemonController,
   makeFindPokemonController,
   makeFindPokemonsController,
@@ -15,4 +16,8 @@ export const applyPokemonRoutes = (router: Router): void => {
   router.delete('/pokemons/:id', adaptRoute(makeRemovePokemonController()))
   router.get('/pokemons/:id', adaptRoute(makeFindPokemonController()))
   router.get('/pokemons', adaptRoute(makeFindPokemonsController()))
+  router.post(
+    '/pokemons/:pokemonAId/:pokemonBId',
+    adaptRoute(makeBattlePokemonController())
+  )
 }

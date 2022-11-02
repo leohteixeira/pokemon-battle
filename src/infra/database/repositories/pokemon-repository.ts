@@ -1,6 +1,7 @@
 import { DatabaseError } from '@/data/errors'
 import {
   AddPokemonRepository,
+  BattlePokemonRepository,
   EditPokemonRepository,
   FindPokemonRepository,
   FindPokemonsRepository,
@@ -89,6 +90,83 @@ export class PokemonRepository
     const pokemonRepository = await MsSQLHelper.getRepository(Pokemon)
 
     const result = await pokemonRepository.find({})
+
+    return result
+  }
+
+  async battlePokemon(
+    params: BattlePokemonRepository.Params
+  ): Promise<BattlePokemonRepository.Result> {
+    const pokemonRepository = await MsSQLHelper.getRepository(Pokemon)
+
+    const pokemonA = await pokemonRepository.findOne({
+      where: { id: params.pokemonAId }
+    })
+
+    if (!pokemonA) {
+      throw new DatabaseError.NotFound('Pokemon A could not be found')
+    }
+
+    const pokemonB = await pokemonRepository.findOne({
+      where: { id: params.pokemonBId }
+    })
+
+    if (!pokemonB) {
+      throw new DatabaseError.NotFound('Pokemon B could not be found')
+    }
+
+    const result = this.fight(pokemonA, pokemonB)
+
+    result.vencedor.nivel += 1
+    await pokemonRepository.save(result.vencedor)
+    result.perdedor.nivel -= 1
+
+    if (result.perdedor.nivel === 0) {
+      await pokemonRepository.delete({ id: result.perdedor.id })
+    } else {
+      await pokemonRepository.save(result.perdedor)
+    }
+
+    return result
+  }
+
+  fight(pokemonA: Pokemon, pokemonB: Pokemon): BattlePokemonRepository.Result {
+    const pokemonANumber = Math.floor(Math.random() * 9 + 1)
+    const pokemonBNumber = Math.floor(Math.random() * 9 + 1)
+    const result = {
+      vencedor: null,
+      perdedor: null
+    }
+
+    if (pokemonA.nivel === pokemonB.nivel) {
+      if (pokemonANumber > pokemonBNumber) {
+        result.vencedor = pokemonA
+        result.perdedor = pokemonB
+      } else {
+        result.vencedor = pokemonB
+        result.perdedor = pokemonA
+      }
+    }
+
+    if (pokemonA.nivel > pokemonB.nivel) {
+      if ((pokemonANumber * 2) / 3 > pokemonBNumber / 3) {
+        result.vencedor = pokemonA
+        result.perdedor = pokemonB
+      } else {
+        result.vencedor = pokemonB
+        result.perdedor = pokemonA
+      }
+    }
+
+    if (pokemonA.nivel < pokemonB.nivel) {
+      if ((pokemonBNumber * 2) / 3 > pokemonANumber / 3) {
+        result.vencedor = pokemonB
+        result.perdedor = pokemonA
+      } else {
+        result.vencedor = pokemonA
+        result.perdedor = pokemonB
+      }
+    }
 
     return result
   }

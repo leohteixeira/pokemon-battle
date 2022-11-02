@@ -1,11 +1,16 @@
 import {
   AddPokemon,
+  BattlePokemon,
   EditPokemon,
   FindPokemon,
   FindPokemons,
   RemovePokemon
 } from '@/domain/usecases'
-import { mockPokemonModel, mockPokemonModels } from '@/tests/domain/mocks'
+import {
+  mockPokemonBattleModel,
+  mockPokemonModel,
+  mockPokemonModels
+} from '@/tests/domain/mocks'
 
 export class AddPokemonSpy implements AddPokemon {
   params: AddPokemon.Params
@@ -47,6 +52,16 @@ export class FindPokemonsSpy implements FindPokemons {
   result: FindPokemons.Result = mockPokemonModels()
 
   async find(): Promise<FindPokemons.Result> {
+    return this.result
+  }
+}
+
+export class BattlePokemonSpy implements BattlePokemon {
+  params: BattlePokemon.Params
+  result: BattlePokemon.Result = mockPokemonBattleModel()
+
+  async battle(params: BattlePokemon.Params): Promise<BattlePokemon.Result> {
+    this.params = params
     return this.result
   }
 }
